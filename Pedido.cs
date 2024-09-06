@@ -1,24 +1,23 @@
 namespace cadeteria;
 
 public class Pedido{
-    enum EstadosPedidos {EnProceso, EnCamino, Entregado}
     private int numero;
     private string? observacion;
-    private EstadosPedidos estado;
+    private char estado; //P = en proceso, C = En camino, E = Entregado
     private Cliente cliente;
     int i=0;
     public Pedido()
     {
         numero = ++i;
         observacion = null;
-        estado = EstadosPedidos.EnProceso;
+        estado = 'P';
         cliente = new Cliente();
     }
-    public Pedido(string obs)
+    public Pedido(string? obs)
     {
         numero = ++i;
         observacion = obs;
-        estado = EstadosPedidos.EnProceso;
+        estado = 'P';
         cliente = new Cliente(true);
     }
     public void VerDireccionCliente()
@@ -29,19 +28,19 @@ public class Pedido{
     {
         cliente.MostrarDatos();
     }
-    public void VerEstadoDelPedido()
+    public char VerEstadoDelPedido()
     {
-        if(estado == EstadosPedidos.EnProceso)
+        return estado;
+    }
+    public void CambiarEstado()
+    {
+        if(estado == 'P')
         {
-            Console.WriteLine("Pedido en proceso");
+            estado = 'C';
         }
-        else if(estado == EstadosPedidos.EnCamino)
+        else if(estado == 'C')
         {
-            Console.WriteLine("Pedido en camino");
-        }
-        else
-        {
-            Console.WriteLine("Pedido entregado");
+            estado = 'E';
         }
     }
 }

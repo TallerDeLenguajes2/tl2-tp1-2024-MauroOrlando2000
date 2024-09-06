@@ -17,7 +17,7 @@ public class cargaCsv {
                 int id = Convert.ToInt16(valores[0]);
                 string nombre = Convert.ToString(valores[1]);
                 string direccion = Convert.ToString(valores[2]);
-                long telefono = Convert.ToInt32(valores[3]);
+                Double telefono = Convert.ToDouble(valores[3]);
                 Cadete nuevo = new Cadete(id, nombre, direccion, telefono);
                 listaCadetes.Add(nuevo);
             }  

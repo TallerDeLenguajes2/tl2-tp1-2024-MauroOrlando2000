@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+
 namespace cadeteria;
 
 public class Cadete{
     private int id;
     private string nombre;
     private string direccion;
-    private long telefono;
+    private Double telefono;
     private List<Pedido> listadoPedidos;
-    public Cadete(int NuevoId, string NuevoNombre, string NuevoDireccion, long NuevoTelefono)
+    public Cadete(int NuevoId, string NuevoNombre, string NuevoDireccion, Double NuevoTelefono)
     {
         id = NuevoId;
         nombre = NuevoNombre;
@@ -17,11 +17,44 @@ public class Cadete{
         telefono = NuevoTelefono;
         listadoPedidos = new List<Pedido>();
     }
-    public void JornalACobrar()
+    public int JornalACobrar()
     {
-        int Jornal, contador;
-        contador = listadoPedidos.Count();
-        Jornal = contador * 500;
-        Console.WriteLine("Jornal a cobrar: $" + Jornal);
+        int Jornal=0;
+        foreach(Pedido pedido in listadoPedidos)
+        {
+            if(pedido.VerEstadoDelPedido() == 'E')
+            {
+                Jornal += 500;
+            }
+        }
+        return Jornal;
+    }
+    public void MostrarCadete()
+    {
+        Console.WriteLine($"ID: {id}\nNombre: {nombre}\nDireccion: {direccion}\nTelefono: {telefono}\n");
+    }
+    public void AsignarPedido(Pedido pedido)
+    {
+        listadoPedidos.Add(pedido);
+    }
+    public int DarID()
+    {
+        return id;
+    }
+    public void BorrarPedido(Pedido pedido)
+    {
+        listadoPedidos.Remove(pedido);
+    }
+    public bool Pertenece(Pedido pedido)
+    {
+        bool anda = false;
+        foreach(Pedido pedidoAux in listadoPedidos)
+        {
+            if(pedidoAux == pedido)
+            {
+                anda = true;
+            }
+        }
+        return anda;
     }
 }
