@@ -25,23 +25,3 @@ public class cargaCsv {
         return listaCadetes;
     }
 }
-
-public class cargaCadeteria {
-    public Cadeteria cargaCadeterias()
-    {
-        string ruta = "cadeteria.csv";
-        Cadeteria cadeteria;
-        using(var FileRead = new StreamReader(ruta))
-        {
-            while(!FileRead.EndOfStream)
-            {
-                var line = FileRead.ReadLine();
-                var valores = line.Split(',');
-                string nombre = Convert.ToString(valores[0]);
-                long telefono = Convert.ToInt32(valores[1]);
-                cadeteria = new Cadeteria(nombre, telefono);
-            }  
-        }
-        return cadeteria;
-    }
-}

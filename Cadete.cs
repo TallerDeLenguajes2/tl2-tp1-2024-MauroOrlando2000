@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 namespace cadeteria;
 
 public class Cadete{
@@ -16,5 +17,11 @@ public class Cadete{
         telefono = NuevoTelefono;
         listadoPedidos = new List<Pedido>();
     }
-    public void JornalACobrar(){}
+    public void JornalACobrar()
+    {
+        int Jornal, contador;
+        contador = listadoPedidos.Count();
+        Jornal = contador * 500;
+        Console.WriteLine("Jornal a cobrar: $" + Jornal);
+    }
 }
