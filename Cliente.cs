@@ -5,6 +5,7 @@ public class Cliente{
     private string direccion;
     private long telefono;
     private string? datosReferenciaDireccion;
+
     public Cliente()
     {
         nombre = "Javier Milei";
@@ -12,6 +13,7 @@ public class Cliente{
         telefono = 3816258135;
         datosReferenciaDireccion = null;
     }
+
     public Cliente(bool num)
     {
         bool anda = false;
@@ -42,6 +44,7 @@ public class Cliente{
         Console.WriteLine("Alguna referencia para ubicar la direccion dada?");
         datosReferenciaDireccion = Console.ReadLine();
     }
+
     public void MostrarDireccion()
     {
         Console.WriteLine("Direccion del cliente: " + direccion);
@@ -54,6 +57,7 @@ public class Cliente{
             Console.WriteLine("Observacion adicional: " + datosReferenciaDireccion);
         }
     }
+    
     public void MostrarDatos()
     {
         Console.WriteLine("Nombre del cliente: " + nombre);

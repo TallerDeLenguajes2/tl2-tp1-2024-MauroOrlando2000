@@ -7,7 +7,9 @@ namespace cadeteria;
 public class Cadeteria{
     private string nombre;
     private Double telefono;
+    private List<Pedido> listadoPedidos;
     private List<Cadete> listadoCadetes;
+
     public Cadeteria()
     {
         cargaCsv cargar = new cargaCsv();
@@ -24,10 +26,22 @@ public class Cadeteria{
         }
         listadoCadetes = cargar.cargaCadetes();
     }
+
+    public List<Pedido> MostrarListaPedidos()
+    {
+        return listadoPedidos;
+    }
+
     public List<Cadete> MostrarListaCadetes()
     {
         return listadoCadetes;
     }
+
+    public void CrearPedido(Pedido pedido)
+    {
+        listadoPedidos.Add(pedido);
+    }
+
     public void AsignarPedido(Pedido pedido, int ID)
     {
         foreach(Cadete cadete in listadoCadetes)
@@ -39,6 +53,7 @@ public class Cadeteria{
             }
         }
     }
+
     public void Reasignar(Pedido pedido, int IDIngreso, int IDBorrar)
     {
         foreach(Cadete cadete in listadoCadetes)
@@ -56,6 +71,7 @@ public class Cadeteria{
             }
         }
     }
+
     public int Pertenece(Pedido pedido)
     {
         foreach(Cadete cadete in listadoCadetes)
@@ -67,6 +83,7 @@ public class Cadeteria{
         }
         return -1;
     }
+
     public void GenerarInforme()
     {
         int Total=0;

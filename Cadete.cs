@@ -8,7 +8,7 @@ public class Cadete{
     private string nombre;
     private string direccion;
     private Double telefono;
-    private List<Pedido> listadoPedidos;
+
     public Cadete(int NuevoId, string NuevoNombre, string NuevoDireccion, Double NuevoTelefono)
     {
         id = NuevoId;
@@ -17,6 +17,7 @@ public class Cadete{
         telefono = NuevoTelefono;
         listadoPedidos = new List<Pedido>();
     }
+
     public int JornalACobrar()
     {
         int Jornal=0;
@@ -29,22 +30,27 @@ public class Cadete{
         }
         return Jornal;
     }
+
     public void MostrarCadete()
     {
         Console.WriteLine($"ID: {id}\nNombre: {nombre}\nDireccion: {direccion}\nTelefono: {telefono}\n");
     }
+
     public void AsignarPedido(Pedido pedido)
     {
         listadoPedidos.Add(pedido);
     }
+
     public int DarID()
     {
         return id;
     }
+
     public void BorrarPedido(Pedido pedido)
     {
         listadoPedidos.Remove(pedido);
     }
+    
     public bool Pertenece(Pedido pedido)
     {
         bool anda = false;

@@ -1,8 +1,6 @@
 ﻿using cadeteria;
 
 Cadeteria cadeteria = new Cadeteria();
-List<Pedido> list = new List<Pedido>();
-Pedido pedido = null;
 
 bool anda = false;
 string stringNum;
@@ -19,7 +17,7 @@ while(!anda)
 
     switch(num)
     {
-        case 1: if(list.Count() == 0)
+        case 1: if((cadeteria.MostrarListaPedidos()).Count() == 0)
         {
             Console.WriteLine("No hay pedidos que seleccionar");
             anda = false;
@@ -28,9 +26,10 @@ while(!anda)
         {
             anda = false;
             int i=0;
-            foreach(Pedido seleccionado in list)
+            foreach(Pedido seleccionado in cadeteria.MostrarListaPedidos())
             {
                 Console.WriteLine("Pedido " + ++i);
+                seleccionado.VerPedido();
                 seleccionado.VerDireccionCliente();
                 Console.WriteLine("\n");
             }
@@ -50,7 +49,7 @@ while(!anda)
         break;
 
         case 2: Pedido nuevo;
-        if(list.Count() == 0)
+        if((cadeteria.MostrarListaPedidos()).Count() == 0)
         {
             nuevo = new Pedido();
         }
@@ -66,29 +65,9 @@ while(!anda)
                     anda = true;
                 }
             }
-            nuevo = new Pedido(stringNum);
+            Pedido nuevo = new Pedido(stringNum);
+            cadeteria.CrearPedido(nuevo);
         }
-        list.Add(nuevo);
-        anda = false;
-        while(!anda)
-        {
-            int i=0;
-            nuevo.VerDireccionCliente();
-            foreach(Cadete cadete in cadeteria.MostrarListaCadetes())
-            {
-                Console.WriteLine("Cadete " + i);
-                cadete.MostrarCadete();
-            }
-            Console.WriteLine("A que cadete quiere asignarle este pedido (Ingrese el ID)");
-            stringNum = Console.ReadLine();
-            anda = int.TryParse(stringNum, out num);
-            if(!anda || num < 0 || num > 4)
-            {
-                Console.WriteLine("Numero invalido");
-            }
-        }
-        cadeteria.AsignarPedido(nuevo, num);
-        anda = false;
         break;
         
         case 3: if(pedido == null)
