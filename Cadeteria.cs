@@ -83,7 +83,7 @@ public class Cadeteria{
         {
             int TotalCadete = JornalACobrar(cadete.DarID());
             Total += TotalCadete;
-            Console.WriteLine($"Total cadete {cadete.DarID()}: {TotalCadete}");
+            Console.WriteLine($"Cantidad de pedidos entregados: {TotalCadete/500}\nTotal cadete {cadete.DarID()}: {TotalCadete}\n");
             contador = contador + (TotalCadete / 500);
             divisor++;
         }

@@ -38,7 +38,15 @@ public class Pedido{
     public void VerPedido()
     {
         Console.WriteLine("Pedido: " + numero);
-        Console.WriteLine("Observacion: " + observacion);
+        if(observacion == null)
+        {
+            Console.WriteLine("Ninguna");
+        }
+        else
+        {
+            Console.WriteLine("Observacion: " + observacion + "\n");
+        }
+        
     }
 
     public char DarEstadoDelPedido()
@@ -67,7 +75,14 @@ public class Pedido{
 
     public void AsginarCadete(int IDAsignar)
     {
-        IDCadete = IDAsignar;
+        if(estado != 'E')
+        {
+            IDCadete = IDAsignar;
+        }
+        else
+        {
+            Console.WriteLine("Pedido entregado. No hay porque asignarlo a un nuevo cadete\n");
+        }
     }
 
     public int DarIdCadete()

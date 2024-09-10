@@ -8,7 +8,7 @@ string stringNum;
 int num = 0, numeroPedido=0;
 while(!anda)
 {
-    Console.WriteLine("Que desea hacer?\n1.Seleccionar un pedido\n2.Crear un pedido\n3.Re/Asignar pedido a cadete\n4.Cambiar pedido de estado\nOtro.Finalizar jornada");
+    Console.WriteLine("Que desea hacer?\n1.Seleccionar un pedido\n2.Crear un pedido\n3.Re/Asignar pedido a cadete\n4.Cambiar el estado del pedido seleccionado\nOtro.Finalizar jornada");
     stringNum = Console.ReadLine();
     anda = int.TryParse(stringNum, out num);
     if(!anda)
@@ -85,34 +85,41 @@ while(!anda)
         }
         else
         {
-            anda = false;
-            while(!anda)
+            if(PedidoSeleccionado.DarEstadoDelPedido() != 'E')
             {
-                PedidoSeleccionado.VerPedido();
-                foreach(Cadete cadete in cadeteria.MostrarListaCadetes())
+                anda = false;
+                while(!anda)
                 {
-                    cadete.MostrarCadete();
+                    PedidoSeleccionado.VerPedido();
+                    foreach(Cadete cadete in cadeteria.MostrarListaCadetes())
+                    {
+                        cadete.MostrarCadete();
+                    }
+                    if(PedidoSeleccionado.DarIdCadete() > -1)
+                    {
+                        Console.WriteLine("Pedido ya asignado a cadete ID: " + PedidoSeleccionado.DarIdCadete());
+                    }
+                    Console.WriteLine("A que cadete quiere asignarle este pedido (Ingrese el ID)");
+                    stringNum = Console.ReadLine();
+                    anda = int.TryParse(stringNum, out num);
+                    if(!anda || num < 0 || num > 4)
+                    {
+                        Console.WriteLine("Numero invalido");
+                    }
                 }
-                if(PedidoSeleccionado.DarIdCadete() > -1)
-                {
-                    Console.WriteLine("Pedido ya asignado a cadete ID: " + PedidoSeleccionado.DarIdCadete());
-                }
-                Console.WriteLine("A que cadete quiere asignarle este pedido (Ingrese el ID)");
-                stringNum = Console.ReadLine();
-                anda = int.TryParse(stringNum, out num);
-                if(!anda || num < 0 || num > 4)
-                {
-                    Console.WriteLine("Numero invalido");
-                }
+                cadeteria.AsignarCadeteAPedido(num, PedidoSeleccionado.DarIDPedido());
             }
-            cadeteria.AsignarCadeteAPedido(num, PedidoSeleccionado.DarIDPedido());
+            else
+            {
+                Console.WriteLine("Pedido seleccionado ya entregado.\n");
+            }
         }
         anda = false;
         break;
         
         case 4: if(PedidoSeleccionado == null)
         {
-            Console.WriteLine("No hay pedido seleccionado");
+            Console.WriteLine("No hay pedido seleccionado. Seleccione un pedido\n");
         }
         else
         {
