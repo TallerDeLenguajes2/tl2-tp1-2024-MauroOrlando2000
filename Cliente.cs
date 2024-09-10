@@ -31,7 +31,7 @@ public class Cliente{
             }
         }
         anda = false;
-        while(!anda)
+        while(!anda || telefono < 999999999 || telefono > 10000000000)
         {
             Console.WriteLine("Ingrese el telefono del cliente");
             stringNum = Console.ReadLine();
@@ -43,6 +43,10 @@ public class Cliente{
         }
         Console.WriteLine("Alguna referencia para ubicar la direccion dada?");
         datosReferenciaDireccion = Console.ReadLine();
+        if(datosReferenciaDireccion == null)
+        {
+            datosReferenciaDireccion = "Ninguna";
+        }
     }
 
     public void MostrarDireccion()

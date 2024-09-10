@@ -7,8 +7,8 @@ namespace cadeteria;
 public class Cadeteria{
     private string nombre;
     private Double telefono;
-    private List<Pedido> listadoPedidos;
-    private List<Cadete> listadoCadetes;
+    private List<Pedido> listadoPedidos = new List<Pedido>();
+    private List<Cadete> listadoCadetes = new List<Cadete>();
 
     public Cadeteria()
     {
@@ -37,51 +37,42 @@ public class Cadeteria{
         return listadoCadetes;
     }
 
-    public void CrearPedido(Pedido pedido)
+    public void CrearPedido(string? observacion, int IDPedido)
     {
-        listadoPedidos.Add(pedido);
+        Pedido nuevo;
+        if(observacion == null)
+        {
+            nuevo = new Pedido(IDPedido);
+        }
+        else
+        {
+            nuevo = new Pedido(IDPedido, observacion);
+        }
+        listadoPedidos.Add(nuevo);
     }
 
-    public void AsignarPedido(Pedido pedido, int ID)
+    public void AsignarCadeteAPedido(int IDCadete, int IDPedido)
     {
-        foreach(Cadete cadete in listadoCadetes)
+        foreach(Pedido pedido in listadoPedidos)
         {
-            if(cadete.DarID() == ID)
+            if(pedido.DarIDPedido() == IDPedido)
             {
-                cadete.AsignarPedido(pedido);
-                break;
+                pedido.AsginarCadete(IDCadete);
             }
         }
     }
 
-    public void Reasignar(Pedido pedido, int IDIngreso, int IDBorrar)
+    public int JornalACobrar(int IDCadete)
     {
-        foreach(Cadete cadete in listadoCadetes)
+        int Jornal=0;
+        foreach(Pedido pedido in listadoPedidos)
         {
-            if(cadete.DarID() == IDIngreso)
+            if(pedido.DarIdCadete() == IDCadete && pedido.DarEstadoDelPedido() == 'E')
             {
-                cadete.AsignarPedido(pedido);
-            }
-            else
-            {
-                if(cadete.DarID() == IDBorrar)
-                {
-                    cadete.BorrarPedido(pedido);
-                }
+                Jornal += 500;
             }
         }
-    }
-
-    public int Pertenece(Pedido pedido)
-    {
-        foreach(Cadete cadete in listadoCadetes)
-        {
-            if(cadete.Pertenece(pedido))
-            {
-                return cadete.DarID();
-            }
-        }
-        return -1;
+        return Jornal;
     }
 
     public void GenerarInforme()
@@ -90,7 +81,7 @@ public class Cadeteria{
         float contador=0, divisor=0, promedio;
         foreach(Cadete cadete in listadoCadetes)
         {
-            int TotalCadete = cadete.JornalACobrar();
+            int TotalCadete = JornalACobrar(cadete.DarID());
             Total += TotalCadete;
             Console.WriteLine($"Total cadete {cadete.DarID()}: {TotalCadete}");
             contador = contador + (TotalCadete / 500);
