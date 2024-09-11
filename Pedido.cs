@@ -54,17 +54,20 @@ public class Pedido{
         return estado;
     }
 
-    public void CambiarEstado()
+    public void CambiarEstado(char charEstado)
     {
+        estado = charEstado;
         if(estado == 'P')
         {
-            estado = 'C';
-            Console.WriteLine("Pedido en camino\n");
+            Console.WriteLine($"\nPedido {numero} en proceso\n");
         }
         else if(estado == 'C')
         {
-            estado = 'E';
-            Console.WriteLine("Pedido entregado\n");
+            Console.WriteLine($"\nPedido {numero} en camino\n");
+        }
+        else
+        {
+            Console.WriteLine($"\nPedido {numero} entregado\n");
         }
     }
 

@@ -1,13 +1,17 @@
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 namespace cadeteria;
 
-public class cargaCsv {
+public class AccesoADatos{}
+
+public class AccesoCSV : AccesoADatos{
     public List<Cadete> cargaCadetes()
     {
-        string ruta = "cadetes.csv";
         List<Cadete> listaCadetes = new List<Cadete>();
+        string ruta = "cadetes.csv";
         using(var FileRead = new StreamReader(ruta))
         {
             while(!FileRead.EndOfStream)
@@ -23,5 +27,17 @@ public class cargaCsv {
             }  
         }
         return listaCadetes;
+    }
+}
+
+public class AccesoJSON : AccesoADatos{
+
+    public List<Cadete> cargarCadetes()
+    {
+        string ruta = "cadetes.json";
+        var FileRead = new StreamReader(ruta);
+        var Json = FileRead.ReadToEnd();
+        List<Cadete> lista = JsonSerializer.Deserialize<List<Cadete>>(Json);
+        return lista;
     }
 }

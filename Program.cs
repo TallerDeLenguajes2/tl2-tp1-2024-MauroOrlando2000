@@ -1,6 +1,7 @@
-﻿using cadeteria;
+﻿using System.Reflection;
+using cadeteria;
 
-Cadeteria cadeteria = new Cadeteria();
+Cadeteria cadeteria;
 Pedido? PedidoSeleccionado = null;
 
 bool anda = false;
@@ -8,6 +9,17 @@ string stringNum;
 int num = 0, numeroPedido=0;
 while(!anda)
 {
+    while(!anda || num < 1 || num > 2)
+    {
+        Console.WriteLine("Desea cargar los datos por archivo CSV o JSON? (1=CSV, 2=JSON)");
+        stringNum = Console.ReadLine();
+        anda = int.TryParse(stringNum, out num);
+        if(!anda || num < 1 || num > 2)
+        {
+            Console.WriteLine("Numero invalido");
+        }
+    }
+    cadeteria = new Cadeteria(num);
     Console.WriteLine("Que desea hacer?\n1.Seleccionar un pedido\n2.Crear un pedido\n3.Re/Asignar pedido a cadete\n4.Cambiar el estado del pedido seleccionado\nOtro.Finalizar jornada");
     stringNum = Console.ReadLine();
     anda = int.TryParse(stringNum, out num);
@@ -123,7 +135,38 @@ while(!anda)
         }
         else
         {
-            PedidoSeleccionado.CambiarEstado();
+            char charEstado;
+            switch(PedidoSeleccionado.DarEstadoDelPedido())
+            {
+                case 'P': charEstado = 'P';
+                while (charEstado != 'E' && charEstado != 'C')
+                {
+                    Console.WriteLine("A que Estado desea cambiar? ('C' = en camino, 'E' = entregado)");
+                    charEstado = Console.ReadKey().KeyChar;
+                    if(charEstado == null || (charEstado != 'E' && charEstado != 'C'))
+                    {
+                        Console.WriteLine("Valor inválido");
+                    }
+                }
+                PedidoSeleccionado.CambiarEstado(charEstado);
+                break;
+
+                case 'C': charEstado = 'C';
+                while (charEstado != 'P' && charEstado != 'E')
+                {
+                    Console.WriteLine("A que Estado desea cambiar? ('P' = en proceso, 'E' = entregado)");
+                    charEstado = Console.ReadKey().KeyChar;
+                    if(charEstado == null || (charEstado != 'P' && charEstado != 'E'))
+                    {
+                        Console.WriteLine("Valor inválido");
+                    }
+                }
+                PedidoSeleccionado.CambiarEstado(charEstado);
+                break;
+
+                default: Console.WriteLine("Pedido ya entregado. No se puede cambiar su estado.\n");
+                break;
+            }
         }
         anda = false;
         break;

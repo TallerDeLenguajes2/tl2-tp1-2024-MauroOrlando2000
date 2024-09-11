@@ -9,21 +9,26 @@ public class Cadete{
     private string direccion;
     private Double telefono;
 
+    public int Id { get => id; set => id = value; }
+    public string Nombre { get => nombre; set => nombre = value; }
+    public string Direccion { get => direccion; set => direccion = value; }
+    public double Telefono { get => telefono; set => telefono = value; }
+
     public Cadete(int NuevoId, string NuevoNombre, string NuevoDireccion, Double NuevoTelefono)
     {
-        id = NuevoId;
-        nombre = NuevoNombre;
-        direccion = NuevoDireccion;
-        telefono = NuevoTelefono;
+        Id = NuevoId;
+        Nombre = NuevoNombre;
+        Direccion = NuevoDireccion;
+        Telefono = NuevoTelefono;
     }
 
     public void MostrarCadete()
     {
-        Console.WriteLine($"ID: {id}\nNombre: {nombre}\nDireccion: {direccion}\nTelefono: {telefono}\n");
+        Console.WriteLine($"ID: {Id}\nNombre: {Nombre}\nDireccion: {Direccion}\nTelefono: {Telefono}\n");
     }
 
     public int DarID()
     {
-        return id;
+        return Id;
     }
 }

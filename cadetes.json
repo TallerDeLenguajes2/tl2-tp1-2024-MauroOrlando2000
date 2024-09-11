@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 0,
+    "Nombre": "Javier Miler",
+    "Direccion": "Quinta de Olivos",
+    "Telefono": 3112345678
+  },
+  {
+    "Id": 1,
+    "Nombre": "Simon Montenegro",
+    "Direccion": "Coronel Zelaya 300",
+    "Telefono": 3816234567
+  },
+  {
+    "Id": 2,
+    "Nombre": "Mauro Nicotra",
+    "Direccion": "Av Colon 475",
+    "Telefono": 3815321987
+  },
+  {
+    "Id": 3,
+    "Nombre": "Mauro Orlando",
+    "Direccion": "San Juan 2300",
+    "Telefono": 3815321987
+  },
+  {
+    "Id": 4,
+    "Nombre": "Lourdes Velasquez",
+    "Direccion": "25 de Mayo 300",
+    "Telefono": 3816567321
+  }
+]
