@@ -1,2 +1,6 @@
-[{"nombre": "Don Pepe","telefono": 3814234567,"listadoPedidos": {},"listadoCadetes": {}}]
-  
+{
+  "Nombre": "Don Pepe",
+  "Telefono": 3814234567,
+  "ListadoPedidos": [],
+  "ListadoCadetes": []
+}

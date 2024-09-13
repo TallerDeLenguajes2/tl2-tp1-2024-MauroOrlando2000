@@ -3,13 +3,13 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Text.Json;
 namespace cadeteria;
 
 public class Cadeteria{
     private string nombre;
-    private Double telefono;
+    private double telefono;
     private List<Pedido> listadoPedidos;
     private List<Cadete> listadoCadetes;
 
@@ -18,38 +18,10 @@ public class Cadeteria{
     public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
     public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
 
-    public Cadeteria(int num)
+    public Cadeteria()
     {
         ListadoPedidos = new List<Pedido>();
         ListadoCadetes = new List<Cadete>();
-
-        if(num == 1)
-        {
-            string ruta = "cadeteria.csv";
-            using(StreamReader FileRead = new StreamReader(ruta))
-            {
-                while(!FileRead.EndOfStream)
-                {
-                    var line = FileRead.ReadLine();
-                    var valores = line.Split(',');
-                    Nombre = Convert.ToString(valores[0]);
-                    Telefono = Convert.ToDouble(valores[1]);
-                }  
-            }
-            AccesoCSV CSV = new AccesoCSV();
-            ListadoCadetes = CSV.cargaCadetes();
-        }
-        else
-        {
-            string ruta = "cadeteria.json";
-            var FileRead = new StreamReader(ruta);
-            var Json = FileRead.ReadToEnd();
-            Cadeteria cadeteria1 = JsonSerializer.Deserialize<Cadeteria>(Json);
-            nombre = cadeteria1.Nombre;
-            telefono = cadeteria1.Telefono;
-            AccesoJSON JSONCadetes = new AccesoJSON();
-            listadoCadetes = JSONCadetes.cargarCadetes();
-        }
     }
 
     public List<Pedido> MostrarListaPedidos()

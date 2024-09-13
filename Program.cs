@@ -1,25 +1,37 @@
 ﻿using System.Reflection;
 using cadeteria;
 
-Cadeteria cadeteria;
+Cadeteria cadeteria = new Cadeteria();
 Pedido? PedidoSeleccionado = null;
 
 bool anda = false;
 string stringNum;
 int num = 0, numeroPedido=0;
+
+while(!anda || num < 1 || num > 2)
+{
+    Console.WriteLine("Desea cargar los datos por archivo CSV o JSON? (1=CSV, 2=JSON)");
+    stringNum = Console.ReadLine();
+    anda = int.TryParse(stringNum, out num);
+    if(!anda || num < 1 || num > 2)
+    {
+        Console.WriteLine("Numero invalido");
+    }
+}
+if(num == 1)
+{
+    AccesoADatos Acceso = new AccesoCSV();
+    Acceso.cargarDatos(cadeteria);
+}
+else
+{
+    AccesoADatos Acceso = new AccesoJSON();
+    Acceso.cargarDatos(cadeteria);
+}
+
+anda = false;
 while(!anda)
 {
-    while(!anda || num < 1 || num > 2)
-    {
-        Console.WriteLine("Desea cargar los datos por archivo CSV o JSON? (1=CSV, 2=JSON)");
-        stringNum = Console.ReadLine();
-        anda = int.TryParse(stringNum, out num);
-        if(!anda || num < 1 || num > 2)
-        {
-            Console.WriteLine("Numero invalido");
-        }
-    }
-    cadeteria = new Cadeteria(num);
     Console.WriteLine("Que desea hacer?\n1.Seleccionar un pedido\n2.Crear un pedido\n3.Re/Asignar pedido a cadete\n4.Cambiar el estado del pedido seleccionado\nOtro.Finalizar jornada");
     stringNum = Console.ReadLine();
     anda = int.TryParse(stringNum, out num);
