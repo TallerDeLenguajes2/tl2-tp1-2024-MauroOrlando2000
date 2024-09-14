@@ -21,6 +21,7 @@ public class Cadete{
         Direccion = "San Pedro";
         Telefono = 0;
     }
+
     public Cadete(int NuevoId, string NuevoNombre, string NuevoDireccion, double NuevoTelefono)
     {
         Id = NuevoId;
@@ -29,9 +30,10 @@ public class Cadete{
         Telefono = NuevoTelefono;
     }
 
-    public void MostrarCadete()
+    public string MostrarCadete()
     {
-        Console.WriteLine($"ID: {Id}\nNombre: {Nombre}\nDireccion: {Direccion}\nTelefono: {Telefono}\n");
+        string aux = $"ID: {Id}\nNombre: {Nombre}\nDireccion: {Direccion}\nTelefono: {Telefono}\n";
+        return aux;
     }
 
     public int DarID()

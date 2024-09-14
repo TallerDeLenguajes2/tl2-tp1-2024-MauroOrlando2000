@@ -34,29 +34,33 @@ public class Cadeteria{
         return ListadoCadetes;
     }
 
-    public void CrearPedido(string? observacion, int IDPedido)
+    public bool CrearPedido(int IDPedido, string obs, string name, string address, double phone, string? reference)
     {
-        Pedido nuevo;
-        if(observacion == null)
+        Pedido nuevo = new Pedido(IDPedido, obs, name, address, phone, reference);
+        ListadoPedidos.Add(nuevo);
+        if(nuevo != null)
         {
-            nuevo = new Pedido(IDPedido);
+            return true;
         }
         else
         {
-            nuevo = new Pedido(IDPedido, observacion);
+            return false;
         }
-        ListadoPedidos.Add(nuevo);
     }
 
-    public void AsignarCadeteAPedido(int IDCadete, int IDPedido)
+    public bool AsignarCadeteAPedido(int IDCadete, int IDPedido)
     {
+        bool asignado = false;
         foreach(Pedido pedido in ListadoPedidos)
         {
             if(pedido.DarIDPedido() == IDPedido)
             {
                 pedido.AsginarCadete(IDCadete);
+                asignado = true;
+                break;
             }
         }
+        return asignado;
     }
 
     public int JornalACobrar(int IDCadete)
@@ -72,20 +76,21 @@ public class Cadeteria{
         return Jornal;
     }
 
-    public void GenerarInforme()
+    public string GenerarInforme()
     {
         int Total=0;
         float contador=0, divisor=0, promedio;
+        string aux = "";
         foreach(Cadete cadete in ListadoCadetes)
         {
             int TotalCadete = JornalACobrar(cadete.DarID());
             Total += TotalCadete;
-            Console.WriteLine($"Cantidad de pedidos entregados: {TotalCadete/500}\nTotal cadete {cadete.DarID()}: {TotalCadete}\n");
+            aux += $"Cantidad de pedidos entregados: {TotalCadete/500}\nTotal cadete {cadete.DarID()}: {TotalCadete}\n\n";
             contador = contador + (TotalCadete / 500);
             divisor++;
         }
         promedio = contador / divisor;
-        Console.WriteLine("Total recaudado: " + Total);
-        Console.WriteLine("Promedio de envios por cliente: " + promedio);
+        aux += $"Total recaudado: {Total}\nPromedio de envios por cliente: {promedio}\n";
+        return aux;
     }
 }

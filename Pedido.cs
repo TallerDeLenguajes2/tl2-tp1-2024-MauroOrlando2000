@@ -7,46 +7,29 @@ public class Pedido{
     private Cliente cliente;
     private int IDCadete; //-1 si no tiene cadete. >=0 si tiene cadete
 
-    public Pedido(int num)
-    {
-        numero = num;
-        observacion = "Pizza";
-        estado = 'P';
-        cliente = new Cliente();
-        IDCadete = -1;
-    }
-
-    public Pedido(int num, string obs)
+    public Pedido(int num, string obs, string name, string address, double phone, string? reference)
     {
         numero = num;
         observacion = obs;
         estado = 'P';
-        cliente = new Cliente(true);
+        cliente = new Cliente(name, address, phone, reference);
         IDCadete = -1;
     }
 
-    public void VerDireccionCliente()
+    public string VerDireccionCliente()
     {
-        cliente.MostrarDireccion();
+        return cliente.MostrarDireccion();
     }
 
-    public void VerDatosCliente()
+    public string VerDatosCliente()
     {
-        cliente.MostrarDatos();
+        return cliente.MostrarDatos();
     }
 
-    public void VerPedido()
+    public string VerPedido()
     {
-        Console.WriteLine("Pedido: " + numero);
-        if(observacion == null)
-        {
-            Console.WriteLine("Ninguna");
-        }
-        else
-        {
-            Console.WriteLine("Observacion: " + observacion + "\n");
-        }
-        
+        string stringPedido = "Pedido " + numero + "\n" + "Observacion: " + observacion + "\n";
+        return stringPedido;
     }
 
     public char DarEstadoDelPedido()
@@ -54,20 +37,23 @@ public class Pedido{
         return estado;
     }
 
-    public void CambiarEstado(char charEstado)
+    public string CambiarEstado(char charEstado)
     {
-        estado = charEstado;
-        if(estado == 'P')
+        if(estado == 'E')
         {
-            Console.WriteLine($"\nPedido {numero} en proceso\n");
-        }
-        else if(estado == 'C')
-        {
-            Console.WriteLine($"\nPedido {numero} en camino\n");
+            return "\nPedido ya entregado\n";
         }
         else
         {
-            Console.WriteLine($"\nPedido {numero} entregado\n");
+            estado = charEstado;
+            if(estado == charEstado)
+            {
+                return "Pedido cambiado de estado satisfactoriamente";
+            }
+            else
+            {
+                return "Pedido fallo al cambiar de estado";
+            }
         }
     }
 
@@ -76,15 +62,16 @@ public class Pedido{
         return numero;
     }
 
-    public void AsginarCadete(int IDAsignar)
+    public bool AsginarCadete(int IDAsignar)
     {
         if(estado != 'E')
         {
             IDCadete = IDAsignar;
+            return true;
         }
         else
         {
-            Console.WriteLine("Pedido entregado. No hay porque asignarlo a un nuevo cadete\n");
+            return false;
         }
     }
 
